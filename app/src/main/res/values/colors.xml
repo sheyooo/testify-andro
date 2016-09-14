@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#5BACE0</color>
+    <color name="colorPrimaryLight">#68C4FF</color>
+    <color name="colorPrimaryDark">#337AB7</color>
+    <color name="colorAccent">#337AB7</color>
+
+    <color name="white">#ffffff</color>
+    <color name="almostWhite">#fafafa</color>
+
+    <color name="ashBg">#F4F4F4</color>
+    <color name="lightAsh">#e1e1e1</color>
+    <color name="darkAsh">#777777</color>
+    <color name="testifyGreen">#27AE60</color>
+    <color name="fbBlue">#4E69A2</color>
+</resources>

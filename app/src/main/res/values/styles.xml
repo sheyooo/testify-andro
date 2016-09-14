@@ -1,0 +1,52 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="testifyPostsButton" parent="ThemeOverlay.AppCompat.Light" >
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="testifyButtonBadge" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:background">@color/darkAsh</item>
+    </style>
+
+    <style name="tagsStyle" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:drawable">@drawable/tags_bg</item>
+        <item name="android:drawableLeft">@drawable/tags_bg</item>
+        <item name="android:background">@drawable/tags_bg</item>
+    </style>
+
+    <style name="testifyInputLL">
+        <item name="android:background">@drawable/login_edit_text_bg</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+    </style>
+    <style name="testifyInputET">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/almostWhite</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+</resources>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/login_bg_img"
+            android:id="@+id/imageView" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="160dp"
+                    android:scaleType="fitStart"
+                    android:src="@drawable/testify_logo" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp"
+                android:gravity="bottom">
+
+                <LinearLayout
+                    android:id="@+id/inputsLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/usernameETL"
+                        style="@style/testifyInputLL"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:tint="@color/white"
+                            android:src="@drawable/icon_user_outline_style"/>
+
+                        <EditText
+                            android:id="@+id/usernameET"
+                            style="@style/testifyInputET"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Email or Username"
+                            android:inputType="textPersonName|textEmailAddress"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/testifyInputLL"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center" >
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:tint="@color/white"
+                            android:src="@drawable/icon_padlock"/>
+
+                        <EditText
+                            android:id="@+id/passwordET"
+                            style="@style/testifyInputET"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:hint="Password"
+                            android:inputType="textPassword"
+                            android:layout_weight="1"/>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/actionsLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/loginButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/login_button_bg"
+                        android:onClick="loginButtonOnClick"
+                        android:text="Login"
+                        android:textColor="@color/white"
+                        android:layout_marginBottom="20dp"
+                        android:clickable="true" />
+
+                    <Button
+                        android:id="@+id/fbButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/login_button_bg"
+                        android:backgroundTint="@color/fbBlue"
+                        android:onClick="facebookLogin"
+                        android:text="Login with Facebook"
+                        android:textColor="@color/white"/>
+
+                    <RelativeLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp" >
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Join Testify"
+                            android:textColor="@color/white"
+                            android:layout_alignParentLeft="true"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:clickable="true" />
+
+                        <TextView
+                            android:id="@+id/forgotPassTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Forgot password?"
+                            android:textColor="@color/white"
+                            android:layout_alignParentRight="true"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:clickable="true" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </FrameLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>Feeds</item>
+        <item>Profile</item>
+        <item>Messages</item>
+        <item>Favorites</item>
+        <item>Preferences</item>
+        <item>Logout</item>
+    </string-array>
+
+    <integer-array name="nav_drawer_icons">
+        <item>@drawable/icon_home</item>
+        <item>@drawable/icon_anonymous_robbin</item>
+        <item>@drawable/ic_send_black_24dp</item>
+        <item>@drawable/icon_anonymous_robbin</item>
+        <item>@drawable/ic_drawer</item>
+        <item>@drawable/ic_drawer</item>
+    </integer-array>
+</resources>
