@@ -1,4 +1,4 @@
-package sheyi.com.testify.models;
+package sheyi.com.testify.models.sendables;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

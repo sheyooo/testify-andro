@@ -1,4 +1,4 @@
-package sheyi.com.testify.models;
+package sheyi.com.testify.models.app;
 
 /**
  * Created by andela on 08/09/2016.
