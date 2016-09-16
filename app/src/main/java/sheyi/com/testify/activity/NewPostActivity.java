@@ -52,16 +52,12 @@ public class NewPostActivity extends AppCompatActivity {
             postEditText.setTextColor(getResources().getColor(R.color.white));
             postEditText.setHintTextColor(getResources().getColor(R.color.lightAsh));
             anonymityIcon.setVisibility(View.VISIBLE);
-            getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.color.colorAccent));
         } else {
             etHolderLL.setBackgroundColor(getResources().getColor(R.color.white));
             postEditText.setTextColor(textColor);
             postEditText.setHintTextColor(hintColor);
             anonymityIcon.setVisibility(View.INVISIBLE);
-            getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.color.colorPrimary));
         }
-
-
     }
 
 

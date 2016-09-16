@@ -65,7 +65,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
             Picasso.with(activity)
                     .load(p.getUser().getAvatar())
                     .placeholder(R.drawable.testify_logo)
-                    .error(R.drawable.tap_into_icon)
+                    .error(R.drawable.ic_image)
                     .resize(100, 100)
                     .centerCrop()
                     .into(holder.profileImageView);
@@ -89,18 +89,31 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
         holder.tagsFlowLayout.removeAllViews();
 
         for (Category tag : posts.get(position).getCategories()) {
-            TextView tv = new TextView(activity);
-            tv.setPadding(10, 5, 10, 5);
-            tv.setBackgroundResource(R.drawable.tags_bg);
-            tv.setTextColor(activity.getResources().getColor(R.color.white));
+            TextView tv = this.generateUITag(tag);
             tv.setLayoutParams(layout);
-            tv.setText(tag.getName());
-//            tv.setTextSize(10);
-            tv.setTypeface(null, Typeface.BOLD);
-
             holder.tagsFlowLayout.addView(tv);
         }
 
+        if (posts.get(position).getAnonymous()) {
+            Category cat = new Category();
+            cat.setName("Anonymous");
+
+            TextView tv = this.generateUITag(cat);
+            tv.setLayoutParams(layout);
+            holder.tagsFlowLayout.addView(tv);
+        }
+
+    }
+
+    private TextView generateUITag(Category tag) {
+        TextView tv = new TextView(activity);
+        tv.setPadding(10, 5, 10, 5);
+        tv.setBackgroundResource(R.drawable.tags_bg);
+        tv.setTextColor(activity.getResources().getColor(R.color.white));
+        tv.setText(tag.getName());
+        tv.setTypeface(null, Typeface.BOLD);
+
+        return tv;
     }
 
     @Override

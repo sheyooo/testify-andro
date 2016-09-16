@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import sheyi.com.testify.R;
+import sheyi.com.testify.helper.AuthenticationHelper;
 
 public class DashboardActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
     private Toolbar mToolbar;
@@ -67,6 +68,8 @@ public class DashboardActivity extends AppCompatActivity implements FragmentDraw
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
             startActivity(intent);
+
+            AuthenticationHelper.logout(this);
 
             finish();
         }

@@ -1,8 +1,5 @@
 package sheyi.com.testify.activity;
 
-/**
- * Created by andela on 08/09/2016.
- */
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -33,6 +31,7 @@ public class HomeFragment extends Fragment {
     private PostsAdapter adapter;
 
     private ProgressBar loaderBar;
+    private LinearLayout retryLL;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -40,12 +39,13 @@ public class HomeFragment extends Fragment {
 
     public void loadPosts() {
         loaderBar.setVisibility(View.VISIBLE);
+        retryLL.setVisibility(View.GONE);
 
-        recycler = (RecyclerView) getView().findViewById(R.id.post_recycler_view);
+        recycler = (RecyclerView) getView().findViewById(R.id.postRecyclerView);
 
         ArrayList<Post> posts = new ArrayList<>();
 
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        ApiInterface apiService = ApiClient.getClient(this.getActivity()).create(ApiInterface.class);
 
         Call<ArrayList<Post>> call = apiService.getPosts();
         call.enqueue(new Callback<ArrayList<Post>>() {
@@ -56,11 +56,13 @@ public class HomeFragment extends Fragment {
 
                 recycler.setAdapter(adapter);
                 loaderBar.setVisibility(View.GONE);
+                retryLL.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onFailure(Call<ArrayList<Post>> call, Throwable t) {
                 loaderBar.setVisibility(View.GONE);
+                retryLL.setVisibility(View.VISIBLE);
 
                 Toast.makeText(getActivity(), "Couldn't not connect to internet", Toast.LENGTH_SHORT).show();
             }
@@ -89,10 +91,18 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         loaderBar = (ProgressBar) getView().findViewById(R.id.homeSpinner);
+        retryLL = (LinearLayout) getView().findViewById(R.id.retryLL);
 
         loadPosts();
+
+        retryLL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadPosts();
+                Toast.makeText(getActivity(), "Reconnecting...", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
