@@ -1,7 +1,6 @@
 package sheyi.com.testify.rest;
 
-import android.app.Activity;
-import android.util.Log;
+import android.content.Context;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
@@ -23,12 +22,12 @@ public class ApiClient {
     private static String token;
 
 
-    public static Retrofit getClient(Activity activity) {
+    public static Retrofit getClient(Context context) {
         if (retrofit == null) {
             builderClient = new OkHttpClient.Builder();
             builderClient.addNetworkInterceptor(new StethoInterceptor());
 
-            token = AuthenticationHelper.getToken(activity);
+            token = AuthenticationHelper.getToken(context);
 
             if (token != null) {
                 builderClient.addInterceptor(new Interceptor() {
