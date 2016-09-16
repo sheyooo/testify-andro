@@ -2,6 +2,7 @@ package sheyi.com.testify.activity;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,7 +17,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -105,6 +108,13 @@ public class DashboardActivity extends AppCompatActivity implements FragmentDraw
         AuthenticationHelper.getUser(this, new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
+                Transformation roundedTransformation = new RoundedTransformationBuilder()
+                        .borderColor(Color.WHITE)
+                        .borderWidthDp(2)
+                        .cornerRadiusDp(100)
+                        .oval(false)
+                        .build();
+
                 TextView currentUserNameTV = (TextView) findViewById(R.id.currentUserNameTV);
                 currentUserNameTV.setText(response.body().getName());
 
@@ -112,6 +122,8 @@ public class DashboardActivity extends AppCompatActivity implements FragmentDraw
                 Picasso.with(DashboardActivity.this)
 //                        .load(response.body().getAvatar())
                         .load("http://lorempixel.com/400/200")
+                        .transform(roundedTransformation)
+                        .resize(100, 100)
                         .centerCrop()
                         .into(currentUserAvatar);
             }
