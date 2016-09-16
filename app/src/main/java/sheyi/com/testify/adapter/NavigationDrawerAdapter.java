@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 import sheyi.com.testify.R;
-import sheyi.com.testify.models.NavDrawerItem;
+import sheyi.com.testify.models.app.NavDrawerItem;
 
 /**
  * Created by andela on 08/09/2016.

@@ -13,9 +13,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import sheyi.com.testify.R;
 import sheyi.com.testify.helper.AuthenticationHelper;
+import sheyi.com.testify.models.User;
 
 public class DashboardActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
     private Toolbar mToolbar;
@@ -25,6 +33,12 @@ public class DashboardActivity extends AppCompatActivity implements FragmentDraw
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        if (AuthenticationHelper.isLoggedIn(this)) {
+            initCurrentUser();
+        } else {
+            resetUser();
+        }
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -85,6 +99,36 @@ public class DashboardActivity extends AppCompatActivity implements FragmentDraw
     @Override
     public void onDrawerItemSelected(View view, int position) {
         displayView(position);
+    }
+
+    private void initCurrentUser() {
+        AuthenticationHelper.getUser(this, new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                TextView currentUserNameTV = (TextView) findViewById(R.id.currentUserNameTV);
+                currentUserNameTV.setText(response.body().getName());
+
+                ImageView currentUserAvatar = (ImageView) findViewById(R.id.currentUserAvatarIV);
+                Picasso.with(DashboardActivity.this)
+//                        .load(response.body().getAvatar())
+                        .load("http://lorempixel.com/400/200")
+                        .centerCrop()
+                        .into(currentUserAvatar);
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                initCurrentUser();
+            }
+        });
+    }
+
+    private void resetUser() {
+        TextView currentUserNameTV = (TextView) findViewById(R.id.currentUserNameTV);
+        currentUserNameTV.setText("Guest");
+
+        ImageView currentUserAvatar = (ImageView) findViewById(R.id.currentUserAvatarIV);
+        currentUserAvatar.setImageResource(R.drawable.testify_user_icon);
     }
 
     private void displayView(int position) {

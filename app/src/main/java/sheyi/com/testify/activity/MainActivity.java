@@ -26,7 +26,8 @@ import retrofit2.Response;
 import sheyi.com.testify.R;
 import sheyi.com.testify.helper.AuthenticationHelper;
 import sheyi.com.testify.models.JWToken;
-import sheyi.com.testify.models.LoginPayload;
+import sheyi.com.testify.models.sendables.FBLoginPayload;
+import sheyi.com.testify.models.sendables.LoginPayload;
 import sheyi.com.testify.rest.ApiClient;
 import sheyi.com.testify.rest.ApiInterface;
 
@@ -97,12 +98,31 @@ public class MainActivity extends AppCompatActivity {
 
         callbackManager = CallbackManager.Factory.create();
 
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"));
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                loginResult.getAccessToken();
-                Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
+                FBLoginPayload fbToken = new FBLoginPayload();
+
+                fbToken.setFbAccessToken(loginResult.getAccessToken().getToken());
+
+                Call<JWToken> call = api.loginFb(fbToken);
+
+                call.enqueue(new Callback<JWToken>() {
+                    @Override
+                    public void onResponse(Call<JWToken> call, Response<JWToken> response) {
+                        Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+
+                        AuthenticationHelper.storeToken(MainActivity.this, response.body().getToken());
+                        startActivity(new Intent(MainActivity.this, DashboardActivity.class));
+                        finish();
+                    }
+
+                    @Override
+                    public void onFailure(Call<JWToken> call, Throwable t) {
+                        Toast.makeText(MainActivity.this, "Error logging in with Facebook", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             @Override

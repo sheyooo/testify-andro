@@ -23,7 +23,7 @@ import java.util.List;
 
 import sheyi.com.testify.R;
 import sheyi.com.testify.adapter.NavigationDrawerAdapter;
-import sheyi.com.testify.models.NavDrawerItem;
+import sheyi.com.testify.models.app.NavDrawerItem;
 
 
 public class FragmentDrawer extends Fragment {
