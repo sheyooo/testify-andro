@@ -24,20 +24,23 @@
         android:layout_height="match_parent"
         android:clickable="true"
         android:gravity="center"
+        android:orientation="vertical"
         android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_no_network"
+            android:tint="@color/darkAsh"
+            android:layout_marginBottom="20dp"/>
 
         <TextView
             android:id="@+id/retryTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:drawableTop="@drawable/ic_no_network"
-            android:gravity="center"
             android:text="Couldn't load, click to try again"/>
 
     </LinearLayout>
-
-
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"

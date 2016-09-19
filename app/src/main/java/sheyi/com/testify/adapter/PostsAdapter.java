@@ -84,7 +84,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
 
-        layout.setMargins(0, 0, 15, 10);
+        layout.setMargins(0, 0, 5, 5);
 
         holder.tagsFlowLayout.removeAllViews();
 
@@ -107,10 +107,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
 
     private TextView generateUITag(Category tag) {
         TextView tv = new TextView(activity);
-        tv.setPadding(10, 5, 10, 5);
+        tv.setPadding(10, 1, 10, 1);
+        tv.setGravity(View.TEXT_ALIGNMENT_CENTER);
         tv.setBackgroundResource(R.drawable.tags_bg);
         tv.setTextColor(activity.getResources().getColor(R.color.white));
         tv.setText(tag.getName());
+        tv.setTextSize(14);
         tv.setTypeface(null, Typeface.BOLD);
 
         return tv;
