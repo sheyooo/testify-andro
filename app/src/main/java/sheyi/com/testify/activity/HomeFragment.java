@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,11 +48,11 @@ public class HomeFragment extends Fragment {
 
         ApiInterface apiService = ApiClient.getClient(this.getActivity()).create(ApiInterface.class);
 
-        Call<ArrayList<Post>> call = apiService.getPosts();
-        call.enqueue(new Callback<ArrayList<Post>>() {
+        Call<List<Post>> call = apiService.getPosts();
+        call.enqueue(new Callback<List<Post>>() {
             @Override
-            public void onResponse(Call<ArrayList<Post>> call, Response<ArrayList<Post>> response) {
-                ArrayList<Post> post = response.body();
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                List<Post> post = response.body();
                 adapter = new PostsAdapter(getActivity(), post);
 
                 recycler.setAdapter(adapter);
@@ -60,7 +61,7 @@ public class HomeFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Post>> call, Throwable t) {
+            public void onFailure(Call<List<Post>> call, Throwable t) {
                 loaderBar.setVisibility(View.GONE);
                 retryLL.setVisibility(View.VISIBLE);
 

@@ -2,6 +2,7 @@ package sheyi.com.testify.adapter;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,8 +18,8 @@ import com.wefika.flowlayout.FlowLayout;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import sheyi.com.testify.R;
 import sheyi.com.testify.models.Category;
@@ -27,10 +28,10 @@ import sheyi.com.testify.models.Post;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHolder>{
 
-    private ArrayList<Post> posts;
+    private List<Post> posts;
     private Activity activity;
 
-    public PostsAdapter(Activity activity, ArrayList<Post> data) {
+    public PostsAdapter(Activity activity, List<Post> data) {
         this.posts = data;
         this.activity = activity;
     }
@@ -43,7 +44,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
     }
 
     @Override
-    public void onBindViewHolder(PostViewHolder holder, int position) {
+    public void onBindViewHolder(PostViewHolder holder, final int position) {
         Post p = posts.get(position);
 
         holder.contentTextView.setText(p.getText());
@@ -103,6 +104,17 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
             holder.tagsFlowLayout.addView(tv);
         }
 
+        holder.commentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent();
+
+                i.putExtra("post_id", posts.get(position).getId());
+
+                PostsAdapter.this.activity.startActivity(i);
+            }
+        });
+
     }
 
     private TextView generateUITag(Category tag) {
@@ -131,6 +143,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
                 commentCountTView,
                 nameTextView,
                 contentTextView;
+        LinearLayout commentButton;
 
         RelativeTimeTextView timeTextView;
 
@@ -146,6 +159,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
             amenCountTView = (TextView) itemView.findViewById(R.id.amenCountTView);
             tapCountTView = (TextView) itemView.findViewById(R.id.tapCountTView);
             commentCountTView = (TextView) itemView.findViewById(R.id.commentCountTView);
+
+            commentButton = (LinearLayout) itemView.findViewById(R.id.commentButton);
         }
     }
 
