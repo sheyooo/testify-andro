@@ -1,6 +1,5 @@
 package sheyi.com.testify.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -10,6 +9,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import sheyi.com.testify.models.Category;
+import sheyi.com.testify.models.Comment;
 import sheyi.com.testify.models.JWToken;
 import sheyi.com.testify.models.Post;
 import sheyi.com.testify.models.User;
@@ -27,7 +27,10 @@ public interface ApiInterface {
     Call<User> getUser(@Path("hashID") String hashID);
 
     @GET("posts")
-    Call<ArrayList<Post>> getPosts();
+    Call<List<Post>> getPosts();
+
+    @GET("posts/{id}/comments")
+    Call<List<Comment>> getPostComments(@Path("id") int id);
 
     @GET("categories")
     Call<List<Category>> getCategories();
