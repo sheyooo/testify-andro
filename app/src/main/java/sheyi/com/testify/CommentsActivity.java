@@ -19,7 +19,7 @@ public class CommentsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comments);
 
-        int postID = savedInstanceState.getInt("post_id");
+        int postID = getIntent().getExtras().getInt("post_id");
 
         ApiInterface api = ApiClient.getClient(this).create(ApiInterface.class);
         Call<List<Comment>> call = api.getPostComments(postID);
