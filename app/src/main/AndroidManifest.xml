@@ -45,7 +45,9 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".CommentsActivity"></activity>
+        <activity
+            android:name=".CommentsActivity"
+            android:parentActivityName=".activity.DashboardActivity" />
     </application>
 
 </manifest>
