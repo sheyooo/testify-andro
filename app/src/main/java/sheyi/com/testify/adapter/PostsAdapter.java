@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import sheyi.com.testify.CommentsActivity;
 import sheyi.com.testify.R;
 import sheyi.com.testify.models.Category;
 import sheyi.com.testify.models.Post;
@@ -107,7 +108,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
         holder.commentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent();
+                Intent i = new Intent(PostsAdapter.this.activity, CommentsActivity.class);
 
                 i.putExtra("post_id", posts.get(position).getId());
 
