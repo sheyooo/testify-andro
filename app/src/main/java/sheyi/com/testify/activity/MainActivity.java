@@ -27,7 +27,6 @@ import sheyi.com.testify.R;
 import sheyi.com.testify.helper.AuthenticationHelper;
 import sheyi.com.testify.models.JWToken;
 import sheyi.com.testify.models.sendables.FBLoginPayload;
-import sheyi.com.testify.models.sendables.LoginPayload;
 import sheyi.com.testify.rest.ApiClient;
 import sheyi.com.testify.rest.ApiInterface;
 
@@ -55,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         userET = (EditText) findViewById(R.id.usernameET);
         passwordET = (EditText) findViewById(R.id.passwordET);
 
-        api = ApiClient.getClient(this).create(ApiInterface.class);
+        api = ApiClient.getApi(this);
         pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     }
 
@@ -66,30 +65,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loginButtonOnClick(View v) {
-        String user = userET.getText().toString();
-        String pass = passwordET.getText().toString();
-
-        Call<JWToken> call = api.login(new LoginPayload(user, pass));
-
-        call.enqueue(new Callback<JWToken>() {
-            @Override
-            public void onResponse(Call<JWToken> call, Response<JWToken> response) {
-                if (response.code() == 200) {
-                    AuthenticationHelper.storeToken(MainActivity.this, response.body().getToken());
-
-                    startActivity(new Intent(MainActivity.this, DashboardActivity.class));
-                    finish();
-                } else {
-                    Toast.makeText(MainActivity.this, "Wrong login information, please check and try again", Toast.LENGTH_SHORT).show();
-                    passwordET.setText("");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<JWToken> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Check your internet", Toast.LENGTH_SHORT).show();
-            }
-        });
+        startActivity(new Intent(this, NavDrawerActivity.class));
+//        String user = userET.getText().toString();
+//        String pass = passwordET.getText().toString();
+//
+//        Call<JWToken> call = api.login(new LoginPayload(user, pass));
+//
+//        call.enqueue(new Callback<JWToken>() {
+//            @Override
+//            public void onResponse(Call<JWToken> call, Response<JWToken> response) {
+//                if (response.code() == 200) {
+//                    AuthenticationHelper.storeToken(MainActivity.this, response.body().getToken());
+//
+//                    startActivity(new Intent(MainActivity.this, DashboardActivity.class));
+//                    finish();
+//                } else {
+//                    Toast.makeText(MainActivity.this, "Wrong login information, please check and try again", Toast.LENGTH_SHORT).show();
+//                    passwordET.setText("");
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<JWToken> call, Throwable t) {
+//                Toast.makeText(MainActivity.this, "Check your internet", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     public void facebookLogin(View v) {

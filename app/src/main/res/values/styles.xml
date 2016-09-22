@@ -17,7 +17,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="testifyPostsButton" parent="ThemeOverlay.AppCompat.Light" >
+    <style name="testifyPostsButton" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:background">@android:color/transparent</item>
     </style>
 
@@ -42,6 +42,7 @@
         <item name="android:padding">10dp</item>
         <item name="android:layout_marginBottom">20dp</item>
     </style>
+
     <style name="testifyInputET">
         <item name="android:background">@android:color/transparent</item>
         <item name="android:textColor">@color/white</item>

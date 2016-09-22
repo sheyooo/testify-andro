@@ -46,7 +46,7 @@ public class HomeFragment extends Fragment {
 
         ArrayList<Post> posts = new ArrayList<>();
 
-        ApiInterface apiService = ApiClient.getClient(this.getActivity()).create(ApiInterface.class);
+        ApiInterface apiService = ApiClient.getApi(this.getActivity());
 
         Call<List<Post>> call = apiService.getPosts();
         call.enqueue(new Callback<List<Post>>() {

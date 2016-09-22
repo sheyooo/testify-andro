@@ -48,6 +48,10 @@
         <activity
             android:name=".CommentsActivity"
             android:parentActivityName=".activity.DashboardActivity" />
+        <activity
+            android:name=".activity.NavDrawerActivity"
+            android:label="@string/title_activity_nav_drawer"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

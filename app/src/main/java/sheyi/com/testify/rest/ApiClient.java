@@ -22,7 +22,7 @@ public class ApiClient {
     private static String token;
 
 
-    public static Retrofit getClient(Context context) {
+    public static ApiInterface getApi(Context context) {
         if (retrofit == null) {
             builderClient = new OkHttpClient.Builder();
             builderClient.addNetworkInterceptor(new StethoInterceptor());
@@ -49,7 +49,8 @@ public class ApiClient {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
-        return retrofit;
+
+        return retrofit.create(ApiInterface.class);
     }
 
     public static void notifyChangeToken() {

@@ -6,25 +6,60 @@
     android:orientation="vertical"
     tools:context="sheyi.com.testify.CommentsActivity">
 
-    <include
-        layout="@layout/toolbar"
-         />
+    <include layout="@layout/toolbar" />
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/commentRecyclerView"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1">
 
-        <EditText
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/commentRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="5dp" />
+
+            <ProgressBar
+                android:id="@+id/progressBarComments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Type a comment"/>
+            android:layout_height="1dp"
+            android:background="@color/lightAsh" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="4"
+                android:background="@android:color/transparent"
+                android:hint="Write a comment..."
+                android:inputType="textMultiLine"
+                android:padding="10dp" />
+
+            <ImageButton
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_send_black_24dp" />
+        </LinearLayout>
 
     </LinearLayout>
 

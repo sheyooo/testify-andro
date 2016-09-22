@@ -57,7 +57,7 @@ public class AuthenticationHelper {
         Gson gson = new Gson();
         JWTDecoded j = gson.fromJson(jsonString, JWTDecoded.class);
 
-        ApiInterface api = ApiClient.getClient(context).create(ApiInterface.class);
+        ApiInterface api = ApiClient.getApi(context);
         Call<User> call = api.getUser(j.hash_id);
 
         call.enqueue(callback);
