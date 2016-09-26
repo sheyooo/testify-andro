@@ -2,30 +2,40 @@ package sheyi.com.testify.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import sheyi.com.testify.R;
+import sheyi.com.testify.adapter.PostsAdapter;
 import sheyi.com.testify.helper.AuthenticationHelper;
+import sheyi.com.testify.models.Post;
 import sheyi.com.testify.models.User;
+import sheyi.com.testify.rest.ApiClient;
+import sheyi.com.testify.rest.ApiInterface;
 
 public class NavDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -34,21 +44,40 @@ public class NavDrawerActivity extends AppCompatActivity
     private FragmentDrawer drawerFragment;
     private DrawerLayout drawer;
 
+    private RecyclerView recycler;
+    private PostsAdapter adapter;
+
+    private ProgressBar loaderBar;
+    private LinearLayout retryLL;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_drawer);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        loaderBar = (ProgressBar) findViewById(R.id.homeSpinner);
+        retryLL = (LinearLayout) findViewById(R.id.retryLL);
+
+        loadPosts();
+
+        retryLL.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View v) {
+                loadPosts();
+                Toast.makeText(NavDrawerActivity.this, "Reconnecting...", Toast.LENGTH_SHORT).show();
             }
         });
+        setSupportActionBar(mToolbar);
+
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -79,6 +108,8 @@ public class NavDrawerActivity extends AppCompatActivity
 //        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
 //        tx.replace(R.id.container_body, new HomeFragment());
 //        tx.commit();
+
+        loadPosts();
     }
 
     @Override
@@ -174,6 +205,42 @@ public class NavDrawerActivity extends AppCompatActivity
 
         ImageView currentUserAvatar = (ImageView) findViewById(R.id.currentUserAvatarIV);
         currentUserAvatar.setImageResource(R.drawable.testify_user_icon);
+    }
+
+    public void loadPosts() {
+        loaderBar.setVisibility(View.VISIBLE);
+        retryLL.setVisibility(View.GONE);
+
+        recycler = (RecyclerView) findViewById(R.id.postRecyclerView);
+
+        ArrayList<Post> posts = new ArrayList<>();
+
+        ApiInterface apiService = ApiClient.getApi(this);
+
+        Call<List<Post>> call = apiService.getPosts();
+        call.enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                List<Post> post = response.body();
+                adapter = new PostsAdapter(NavDrawerActivity.this, post);
+
+                recycler.setAdapter(adapter);
+                loaderBar.setVisibility(View.GONE);
+                retryLL.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+                loaderBar.setVisibility(View.GONE);
+                retryLL.setVisibility(View.VISIBLE);
+
+                Toast.makeText(NavDrawerActivity.this, "Couldn't not connect to internet", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        adapter = new PostsAdapter(NavDrawerActivity.this, posts);
+        recycler.setLayoutManager(new LinearLayoutManager(NavDrawerActivity.this));
+        recycler.setAdapter(adapter);
     }
 
 }
