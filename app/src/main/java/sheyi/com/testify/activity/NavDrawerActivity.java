@@ -1,5 +1,6 @@
 package sheyi.com.testify.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -167,6 +168,10 @@ public class NavDrawerActivity extends AppCompatActivity
         return true;
     }
 
+    public void fabNewPostOnClick(View v) {
+        Intent i = new Intent(this, NewPostActivity.class);
+        startActivity(i);
+    }
 
     private void initCurrentUser() {
         AuthenticationHelper.getUser(this, new Callback<User>() {
