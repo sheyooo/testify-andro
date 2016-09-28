@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.curioustechizen.ago.RelativeTimeTextView;
 import com.squareup.picasso.Picasso;
@@ -21,10 +22,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import sheyi.com.testify.CommentsActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import sheyi.com.testify.R;
+import sheyi.com.testify.activity.CommentsActivity;
 import sheyi.com.testify.models.Category;
 import sheyi.com.testify.models.Post;
+import sheyi.com.testify.models.receivables.ActionStatus;
+import sheyi.com.testify.rest.ApiClient;
+import sheyi.com.testify.rest.ApiInterface;
 
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHolder>{
@@ -45,8 +52,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
     }
 
     @Override
-    public void onBindViewHolder(PostViewHolder holder, final int position) {
-        Post p = posts.get(position);
+    public void onBindViewHolder(final PostViewHolder holder, final int position) {
+        final Post p = posts.get(position);
 
         holder.contentTextView.setText(p.getText());
 
@@ -90,13 +97,15 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
 
         holder.tagsFlowLayout.removeAllViews();
 
-        for (Category tag : posts.get(position).getCategories()) {
+        // Generate the blue categories label for the post
+        for (Category tag : p.getCategories()) {
             TextView tv = this.generateUITag(tag);
             tv.setLayoutParams(layout);
             holder.tagsFlowLayout.addView(tv);
         }
 
-        if (posts.get(position).getAnonymous()) {
+        // Check if it is an anonymous post and add anonymous category
+        if (p.getAnonymous()) {
             Category cat = new Category();
             cat.setName("Anonymous");
 
@@ -105,14 +114,72 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
             holder.tagsFlowLayout.addView(tv);
         }
 
+
+
+        // Check if User already taped into the post
+        if (p.getTappedInto()) {
+            holder.tapIcon.setColorFilter(activity.getResources().getColor(R.color.colorPrimary));
+        } else {
+            holder.tapIcon.setColorFilter(null);
+        }
+
         holder.commentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(PostsAdapter.this.activity, CommentsActivity.class);
-
-                i.putExtra("post_id", posts.get(position).getId());
-
+                i.putExtra("post_id", p.getId());
                 PostsAdapter.this.activity.startActivity(i);
+            }
+        });
+
+        // Do the do if it's a prayer post
+        if (p.getPrayer()) {
+            // Show Amen button
+            holder.amenButton.setVisibility(View.VISIBLE);
+
+            // Check if User said Amen already
+            if (p.getAmen()) {
+                holder.amenIcon.setColorFilter(activity.getResources().getColor(R.color.colorPrimary));
+            } else {
+                holder.amenIcon.setColorFilter(null);
+            }
+
+            holder.amenButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // If user already said amen3
+                    if (p.getAmen()) {
+                        return ;
+                    }
+
+                    ApiInterface api = ApiClient.getApi(activity);
+                    Call<ActionStatus> call = api.sayAmen(p.getId());
+
+                    call.enqueue(new Callback<ActionStatus>() {
+                        @Override
+                        public void onResponse(Call<ActionStatus> call, Response<ActionStatus> response) {
+                            holder.amenIcon.setColorFilter(activity.getResources().getColor(R.color.colorPrimary));
+                            holder.amenCountTView.setText(response.body().getCount().toString());
+                        }
+
+                        @Override
+                        public void onFailure(Call<ActionStatus> call, Throwable t) {
+
+                        }
+                    });
+                    Toast.makeText(activity, "Amen", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
+        } else {
+            holder.amenButton.setVisibility(View.GONE);
+        }
+
+        holder.tapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
@@ -144,7 +211,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
                 commentCountTView,
                 nameTextView,
                 contentTextView;
-        LinearLayout commentButton;
+        LinearLayout amenButton,
+                tapButton,
+                commentButton;
+        ImageView amenIcon,
+                tapIcon;
 
         RelativeTimeTextView timeTextView;
 
@@ -161,7 +232,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
             tapCountTView = (TextView) itemView.findViewById(R.id.tapCountTView);
             commentCountTView = (TextView) itemView.findViewById(R.id.commentCountTView);
 
+            amenButton = (LinearLayout) itemView.findViewById(R.id.amenButton);
+            tapButton = (LinearLayout) itemView.findViewById(R.id.tapButton);
             commentButton = (LinearLayout) itemView.findViewById(R.id.commentButton);
+
+            amenIcon = (ImageView) itemView.findViewById(R.id.amenIcon);
+            tapIcon = (ImageView) itemView.findViewById(R.id.tapIcon);
         }
     }
 

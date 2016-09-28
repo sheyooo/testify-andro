@@ -13,6 +13,7 @@ import sheyi.com.testify.models.Comment;
 import sheyi.com.testify.models.JWToken;
 import sheyi.com.testify.models.Post;
 import sheyi.com.testify.models.User;
+import sheyi.com.testify.models.receivables.ActionStatus;
 import sheyi.com.testify.models.sendables.FBLoginPayload;
 import sheyi.com.testify.models.sendables.LoginPayload;
 
@@ -31,6 +32,9 @@ public interface ApiInterface {
 
     @GET("posts/{id}/comments")
     Call<List<Comment>> getPostComments(@Path("id") int id);
+
+    @POST("posts/{id}/amens")
+    Call<ActionStatus> sayAmen(@Path("id") int id);
 
     @GET("categories")
     Call<List<Category>> getCategories();
