@@ -46,7 +46,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CommentsActivity"
+            android:name=".activity.CommentsActivity"
             android:parentActivityName=".activity.DashboardActivity" />
         <activity
             android:name=".activity.NavDrawerActivity"
