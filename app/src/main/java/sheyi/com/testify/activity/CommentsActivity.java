@@ -1,4 +1,4 @@
-package sheyi.com.testify;
+package sheyi.com.testify.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +14,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import sheyi.com.testify.R;
 import sheyi.com.testify.adapter.CommentsAdapter;
 import sheyi.com.testify.models.Comment;
 import sheyi.com.testify.rest.ApiClient;
