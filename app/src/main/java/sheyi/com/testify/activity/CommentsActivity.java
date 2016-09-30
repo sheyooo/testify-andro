@@ -6,9 +6,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -17,6 +19,7 @@ import retrofit2.Response;
 import sheyi.com.testify.R;
 import sheyi.com.testify.adapter.CommentsAdapter;
 import sheyi.com.testify.models.Comment;
+import sheyi.com.testify.models.sendables.CommentPayload;
 import sheyi.com.testify.rest.ApiClient;
 import sheyi.com.testify.rest.ApiInterface;
 
@@ -25,6 +28,7 @@ public class CommentsActivity extends AppCompatActivity {
     private CommentsAdapter adapter;
     private int postID;
     private ProgressBar loader;
+    private List<Comment> comments = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +47,11 @@ public class CommentsActivity extends AppCompatActivity {
 
         postID = getIntent().getExtras().getInt("post_id");
 
+        adapter = new CommentsAdapter(this, comments);
+        commentRecyclerView.setAdapter(adapter);
+
         loadComments();
     }
-
 
     public void loadComments() {
         ApiInterface api = ApiClient.getApi(this);
@@ -55,8 +61,8 @@ public class CommentsActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<Comment>>() {
             @Override
             public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
-                adapter = new CommentsAdapter(CommentsActivity.this, response.body());
-                commentRecyclerView.setAdapter(adapter);
+                comments.addAll(response.body());
+                adapter.notifyDataSetChanged();
 
                 loader.setVisibility(View.GONE);
             }
@@ -70,4 +76,32 @@ public class CommentsActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void sendComment(View v) {
+        final EditText commentET = (EditText) findViewById(R.id.commentEditText);
+        final String comment = commentET.getText().toString();
+
+        CommentPayload cp = new CommentPayload();
+        cp.setText(comment);
+
+        ApiInterface api = ApiClient.getApi(this);
+        Call<Comment> call = api.postComment(postID, cp);
+
+        call.enqueue(new Callback<Comment>() {
+            @Override
+            public void onResponse(Call<Comment> call, Response<Comment> response) {
+                comments.add(response.body());
+                adapter.notifyDataSetChanged();
+
+                commentET.setText("");
+            }
+
+            @Override
+            public void onFailure(Call<Comment> call, Throwable t) {
+                Toast.makeText(CommentsActivity.this, "An error occurred, try again", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
 }

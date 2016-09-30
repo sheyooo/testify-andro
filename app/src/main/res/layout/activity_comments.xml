@@ -46,6 +46,7 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/commentEditText"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="4"
@@ -55,10 +56,12 @@
                 android:padding="10dp" />
 
             <ImageButton
+                android:id="@+id/sendCommentButton"
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_send_black_24dp" />
+                android:src="@drawable/ic_send_black_24dp"
+                android:onClick="sendComment" />
         </LinearLayout>
 
     </LinearLayout>
