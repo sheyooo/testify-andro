@@ -60,8 +60,6 @@ public class NavDrawerActivity extends AppCompatActivity
         loaderBar = (ProgressBar) findViewById(R.id.homeSpinner);
         retryLL = (LinearLayout) findViewById(R.id.retryLL);
 
-        loadPosts();
-
         retryLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,14 +69,6 @@ public class NavDrawerActivity extends AppCompatActivity
         });
         setSupportActionBar(mToolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -93,22 +83,11 @@ public class NavDrawerActivity extends AppCompatActivity
 
     private void runSetup() {
         if (AuthenticationHelper.isLoggedIn(this)) {
-            //initCurrentUser();
+            initCurrentUser();
         } else {
-            //resetUser();
+            resetUser();
         }
         getSupportActionBar().setTitle("Testify");
-//        drawerFragment = (FragmentDrawer)
-//                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
-//        drawerFragment.setUp(
-//                R.id.fragment_navigation_drawer,
-//                (DrawerLayout) findViewById(R.id.drawer_layout),
-//                mToolbar);
-//        drawerFragment.setDrawerListener(this);
-
-//        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-//        tx.replace(R.id.container_body, new HomeFragment());
-//        tx.commit();
 
         loadPosts();
     }
@@ -231,7 +210,7 @@ public class NavDrawerActivity extends AppCompatActivity
 
                 recycler.setAdapter(adapter);
                 loaderBar.setVisibility(View.GONE);
-                retryLL.setVisibility(View.INVISIBLE);
+                retryLL.setVisibility(View.GONE);
             }
 
             @Override

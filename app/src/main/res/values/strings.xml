@@ -12,7 +12,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
-    <string name="title_activity_dashboard">Home</string>
+    <string name="title_activity_dashboard">Testify</string>
 
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>

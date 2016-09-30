@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         if (AuthenticationHelper.isLoggedIn(this)) {
-            startActivity(new Intent(this, DashboardActivity.class));
+            startActivity(new Intent(this, NavDrawerActivity.class));
             finish();
             return ;
         }
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
 
                         AuthenticationHelper.storeToken(MainActivity.this, response.body().getToken());
-                        startActivity(new Intent(MainActivity.this, DashboardActivity.class));
+                        startActivity(new Intent(MainActivity.this, NavDrawerActivity.class));
                         finish();
                     }
 
