@@ -4,6 +4,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -35,6 +36,12 @@ public interface ApiInterface {
 
     @POST("posts/{id}/amens")
     Call<ActionStatus> sayAmen(@Path("id") int id);
+
+    @POST("posts/{id}/taps")
+    Call<ActionStatus> tapInto(@Path("id") int id);
+
+    @DELETE("posts/{id}/taps")
+    Call<ActionStatus> tapIntoUndo(@Path("id") int id);
 
     @GET("categories")
     Call<List<Category>> getCategories();

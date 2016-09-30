@@ -147,7 +147,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
             holder.amenButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // If user already said amen3
+                    // If user already said amen
                     if (p.getAmen()) {
                         return ;
                     }
@@ -158,8 +158,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
                     call.enqueue(new Callback<ActionStatus>() {
                         @Override
                         public void onResponse(Call<ActionStatus> call, Response<ActionStatus> response) {
-                            holder.amenIcon.setColorFilter(activity.getResources().getColor(R.color.colorPrimary));
-                            holder.amenCountTView.setText(response.body().getCount().toString());
+                            // After response from API set status to true or false and count then update adapter
+                            ActionStatus status = response.body();
+
+                            p.setAmen(status.getStatus());
+                            p.setAmensCount(status.getCount());
+
+                            posts.set(posts.indexOf(p), p);
+                            notifyDataSetChanged();
                         }
 
                         @Override
@@ -176,13 +182,46 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
             holder.amenButton.setVisibility(View.GONE);
         }
 
+        // Check if User said Tapped into post already
+        if (p.getTappedInto()) {
+            holder.tapIcon.setColorFilter(activity.getResources().getColor(R.color.colorPrimary));
+        } else {
+            holder.tapIcon.setColorFilter(null);
+        }
+
         holder.tapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ApiInterface api = ApiClient.getApi(activity);
+                Call<ActionStatus> call;
 
+                // If user already tapped into post do otherwise
+                if (p.getTappedInto()) {
+                     call = api.tapIntoUndo(p.getId());
+                } else {
+                    call = api.tapInto(p.getId());
+                }
+
+                call.enqueue(new Callback<ActionStatus>() {
+                    @Override
+                    public void onResponse(Call<ActionStatus> call, Response<ActionStatus> response) {
+                        // After response from API set status to true or false and count then update adapter
+                        ActionStatus status = response.body();
+
+                        p.setTappedInto(status.getStatus());
+                        p.setTapsCount(status.getCount());
+
+                        posts.set(posts.indexOf(p), p);
+                        notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ActionStatus> call, Throwable t) {
+                        Toast.makeText(activity, "An error occurred", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
-
     }
 
     private TextView generateUITag(Category tag) {
