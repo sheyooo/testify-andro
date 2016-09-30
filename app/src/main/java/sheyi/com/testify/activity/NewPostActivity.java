@@ -16,6 +16,7 @@ import java.util.List;
 import sheyi.com.testify.R;
 import sheyi.com.testify.callback.CategoryCallback;
 import sheyi.com.testify.dialog.CategoriesDialog;
+import sheyi.com.testify.models.Category;
 
 public class NewPostActivity extends AppCompatActivity implements CategoryCallback {
     private LinearLayout etHolderLL;
@@ -71,7 +72,7 @@ public class NewPostActivity extends AppCompatActivity implements CategoryCallba
     }
 
     @Override
-    public void onCategorySet(List l) {
-
+    public void onCategorySet(List<Category> l) {
+        //TODO : you have your fucking list here
     }
 }
