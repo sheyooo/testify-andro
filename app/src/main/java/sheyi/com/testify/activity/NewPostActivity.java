@@ -11,9 +11,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 
-import sheyi.com.testify.R;
+import java.util.List;
 
-public class NewPostActivity extends AppCompatActivity {
+import sheyi.com.testify.R;
+import sheyi.com.testify.callback.CategoryCallback;
+import sheyi.com.testify.dialog.CategoriesDialog;
+
+public class NewPostActivity extends AppCompatActivity implements CategoryCallback {
     private LinearLayout etHolderLL;
     private EditText postEditText;
     private Switch anonSwitch;
@@ -60,6 +64,14 @@ public class NewPostActivity extends AppCompatActivity {
         }
     }
 
+    public void showCat(View v) {
+        CategoriesDialog cd = new CategoriesDialog();
+        cd.setCallback(this);
+        cd.show(getSupportFragmentManager(), "categories fragment");
+    }
 
+    @Override
+    public void onCategorySet(List l) {
 
+    }
 }

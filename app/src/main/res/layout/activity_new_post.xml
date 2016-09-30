@@ -14,14 +14,14 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <ImageView
+            android:id="@+id/anonymityIcon"
             android:layout_width="40dp"
             android:layout_height="30dp"
-            android:id="@+id/anonymityIcon"
-            android:tint="@android:color/black"
             android:layout_gravity="left"
+            android:alpha="0.4"
             android:src="@drawable/icon_anonymous_robbin"
-            android:visibility="invisible"
-            android:alpha="0.4" />
+            android:tint="@android:color/black"
+            android:visibility="invisible" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -110,18 +110,21 @@
         </LinearLayout>
 
         <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center">
+            android:id="@+id/newPostTagButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="showCat">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="28dp"
-            android:tint="@color/darkAsh"
-            android:src="@drawable/tags_icon" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:src="@drawable/tags_icon"
+                android:tint="@color/darkAsh" />
 
-    </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             style="?attr/buttonBarButtonStyle"
