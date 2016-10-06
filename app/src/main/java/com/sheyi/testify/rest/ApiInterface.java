@@ -1,14 +1,5 @@
 package com.sheyi.testify.rest;
 
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.DELETE;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
 import com.sheyi.testify.models.Category;
 import com.sheyi.testify.models.Comment;
 import com.sheyi.testify.models.JWToken;
@@ -18,6 +9,17 @@ import com.sheyi.testify.models.receivables.ActionStatus;
 import com.sheyi.testify.models.sendables.CommentPayload;
 import com.sheyi.testify.models.sendables.FBLoginPayload;
 import com.sheyi.testify.models.sendables.LoginPayload;
+import com.sheyi.testify.models.sendables.PostPayload;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiInterface {
     @POST("authenticate")
@@ -46,6 +48,9 @@ public interface ApiInterface {
 
     @DELETE("posts/{id}/taps")
     Call<ActionStatus> tapIntoUndo(@Path("id") int id);
+
+    @POST("posts")
+    Call<Post> sendPost(@Body PostPayload postPayload);
 
     @GET("categories")
     Call<List<Category>> getCategories();
