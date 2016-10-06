@@ -21,6 +21,17 @@ public class Category {
     @Expose
     private Pivot pivot;
 
+    public Category() {
+
+    }
+
+    public Category(int id, String name, String type, int sort) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.sort = sort;
+    }
+
     /**
      *
      * @return
