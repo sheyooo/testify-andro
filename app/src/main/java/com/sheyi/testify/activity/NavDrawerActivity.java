@@ -21,6 +21,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
+import com.sheyi.testify.R;
+import com.sheyi.testify.adapter.PostsAdapter;
+import com.sheyi.testify.helper.AuthenticationHelper;
+import com.sheyi.testify.models.Post;
+import com.sheyi.testify.models.User;
+import com.sheyi.testify.rest.ApiClient;
+import com.sheyi.testify.rest.ApiInterface;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -30,13 +37,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import com.sheyi.testify.R;
-import com.sheyi.testify.adapter.PostsAdapter;
-import com.sheyi.testify.helper.AuthenticationHelper;
-import com.sheyi.testify.models.Post;
-import com.sheyi.testify.models.User;
-import com.sheyi.testify.rest.ApiClient;
-import com.sheyi.testify.rest.ApiInterface;
 
 public class NavDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -205,8 +205,8 @@ public class NavDrawerActivity extends AppCompatActivity
         call.enqueue(new Callback<List<Post>>() {
             @Override
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                List<Post> post = response.body();
-                adapter = new PostsAdapter(NavDrawerActivity.this, post);
+                List<Post> posts = response.body();
+                adapter = new PostsAdapter(NavDrawerActivity.this, posts);
 
                 recycler.setAdapter(adapter);
                 loaderBar.setVisibility(View.GONE);
