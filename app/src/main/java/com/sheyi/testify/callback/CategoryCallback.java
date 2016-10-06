@@ -1,11 +1,11 @@
 package com.sheyi.testify.callback;
 
-import java.util.List;
+import com.sheyi.testify.orm.CategoryORM;
 
-import com.sheyi.testify.models.Category;
+import java.util.List;
 
 public interface CategoryCallback {
 
-    void onCategorySet(List<Category> l);
+    void onCategorySet(List<CategoryORM> l);
 
 }
