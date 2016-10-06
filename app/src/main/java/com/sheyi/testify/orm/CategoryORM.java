@@ -7,13 +7,19 @@ public class CategoryORM extends SugarRecord {
     private String name;
     private String type;
     private int sort;
+    private int apiID;
 
     public CategoryORM() {}
 
-    public CategoryORM(String name, String type, int sort) {
+    public CategoryORM(int apiID, String name, String type, int sort) {
+        this.apiID = apiID;
         this.name = name;
         this.type = type;
         this.sort = sort;
+    }
+
+    public int getApiID() {
+        return apiID;
     }
 
     public String getName() {
