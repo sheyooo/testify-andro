@@ -1,6 +1,5 @@
 package com.sheyi.testify.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,25 +7,29 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.sheyi.testify.R;
+import com.sheyi.testify.activity.NewPostActivity;
+import com.sheyi.testify.orm.CategoryORM;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import com.sheyi.testify.R;
-import com.sheyi.testify.models.Category;
-
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder> {
-    List<Category> data = Collections.emptyList();
-    private Context context;
-    List<Category> checkedList = new ArrayList<>();
+    private List<CategoryORM> data = new ArrayList<>();
+    private NewPostActivity activity;
+    private List<CategoryORM> checkedList = new ArrayList<CategoryORM>();
 
-    public CategoryAdapter(Context context, List<Category> data) {
-        this.context = context;
+    public CategoryAdapter(NewPostActivity activity, List<CategoryORM> data) {
+        this.activity = activity;
         this.data = data;
     }
 
-    public List<Category> getCheckedList() {
+    public List<CategoryORM> getCheckedList() {
         return checkedList;
+    }
+
+    public void setCheckedList(List<CategoryORM> checked) {
+        this.checkedList = checked;
     }
 
     @Override
@@ -38,9 +41,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Category current = data.get(position);
+        CategoryORM current = data.get(position);
         holder.category.setText(current.getName());
-        if (checkedList.contains(current)) {
+        if (myIndexOf(checkedList, current) >= 0) {
             holder.checkBox.setChecked(true);
         } else {
             holder.checkBox.setChecked(false);
@@ -52,6 +55,22 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         return data.size();
     }
 
+    public int myIndexOf(List<CategoryORM> list, CategoryORM categoryORM) {
+        int check = -1;
+        int counter = 0;
+        for (CategoryORM c : list) {
+            if (c.getId() == categoryORM.getId()) {
+                check = counter;
+                break;
+            }
+
+            counter++;
+        }
+
+        return check;
+    }
+
+
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView category;
         CheckBox checkBox;
@@ -60,22 +79,25 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
             super(itemView);
             category = (TextView) itemView.findViewById(R.id.categoryName);
             checkBox = (CheckBox) itemView.findViewById(R.id.checkBox);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                boolean toggle = true;
+
+            View.OnClickListener listener = new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-                    if (toggle) {
-                        checkBox.setChecked(toggle);
-                        checkedList.add(data.get(getAdapterPosition()));
-                        toggle = false;
+                    int find = myIndexOf(checkedList, data.get(getAdapterPosition()));
+
+                    if (find >= 0) {
+                        checkedList.remove(find);
                     } else {
-                        checkBox.setChecked(toggle);
-                        checkedList.remove(data.get(getAdapterPosition()));
-                        toggle = true;
+                        checkedList.add(data.get(getAdapterPosition()));
                     }
+
+                    checkBox.setChecked(!(find >= 0));
                 }
-            });
+            };
+
+            checkBox.setOnClickListener(listener);
+            itemView.setOnClickListener(listener);
         }
     }
 }

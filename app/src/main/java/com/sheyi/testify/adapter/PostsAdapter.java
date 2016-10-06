@@ -3,7 +3,6 @@ package com.sheyi.testify.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +13,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.curioustechizen.ago.RelativeTimeTextView;
+import com.sheyi.testify.R;
+import com.sheyi.testify.activity.CommentsActivity;
+import com.sheyi.testify.models.Category;
+import com.sheyi.testify.models.Post;
+import com.sheyi.testify.models.receivables.ActionStatus;
+import com.sheyi.testify.rest.ApiClient;
+import com.sheyi.testify.rest.ApiInterface;
+import com.sheyi.testify.util.Application;
 import com.squareup.picasso.Picasso;
 import com.wefika.flowlayout.FlowLayout;
 
@@ -25,13 +32,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import com.sheyi.testify.R;
-import com.sheyi.testify.activity.CommentsActivity;
-import com.sheyi.testify.models.Category;
-import com.sheyi.testify.models.Post;
-import com.sheyi.testify.models.receivables.ActionStatus;
-import com.sheyi.testify.rest.ApiClient;
-import com.sheyi.testify.rest.ApiInterface;
 
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHolder>{
@@ -99,7 +99,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
 
         // Generate the blue categories label for the post
         for (Category tag : p.getCategories()) {
-            TextView tv = this.generateUITag(tag);
+            TextView tv = Application.generateUICategoryTag(activity, tag);
             tv.setLayoutParams(layout);
             holder.tagsFlowLayout.addView(tv);
         }
@@ -109,7 +109,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
             Category cat = new Category();
             cat.setName("Anonymous");
 
-            TextView tv = this.generateUITag(cat);
+            TextView tv = Application.generateUICategoryTag(activity, cat);
             tv.setLayoutParams(layout);
             holder.tagsFlowLayout.addView(tv);
         }
@@ -224,18 +224,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
         });
     }
 
-    private TextView generateUITag(Category tag) {
-        TextView tv = new TextView(activity);
-        tv.setPadding(10, 1, 10, 1);
-        tv.setGravity(View.TEXT_ALIGNMENT_CENTER);
-        tv.setBackgroundResource(R.drawable.tags_bg);
-        tv.setTextColor(activity.getResources().getColor(R.color.white));
-        tv.setText(tag.getName());
-        tv.setTextSize(14);
-        tv.setTypeface(null, Typeface.BOLD);
-
-        return tv;
-    }
 
     @Override
     public int getItemCount() {
