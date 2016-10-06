@@ -71,16 +71,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/ashBg" />
 
         <com.wefika.flowlayout.FlowLayout
+            android:id="@+id/categoriesView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tags to be attached to post" />
+                android:text=" " />
+
         </com.wefika.flowlayout.FlowLayout>
     </LinearLayout>
 
@@ -127,6 +136,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/postButton"
             style="?attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -134,7 +144,8 @@
             android:background="@color/colorPrimary"
             android:clickable="true"
             android:focusable="true"
-            android:gravity="center">
+            android:gravity="center"
+            android:onClick="sendPost">
 
             <ImageView
                 android:layout_width="48dp"
