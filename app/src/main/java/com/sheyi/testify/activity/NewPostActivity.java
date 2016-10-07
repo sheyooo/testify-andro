@@ -140,6 +140,10 @@ public class NewPostActivity extends AppCompatActivity implements CategoryCallba
     public void sendPost(View v) {
         PostPayload pay = new PostPayload();
 
+        if (!isPostValid()) {
+            return;
+        }
+
         int anon = anonSwitch.isChecked() ? 1 : 0;
 
         pay.setAnonymous(anon);
@@ -163,6 +167,13 @@ public class NewPostActivity extends AppCompatActivity implements CategoryCallba
             }
         });
 
+    }
+
+    private boolean isPostValid() {
+        boolean isTextValid = postEditText.getText().toString().length() > 5;
+        boolean isImageValid = false;
+
+        return isTextValid || isImageValid;
     }
 
     public List<Integer> getIDs(List<CategoryORM> cats) {
