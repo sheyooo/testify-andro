@@ -286,7 +286,7 @@ public class NavDrawerActivity extends AppCompatActivity
                 NavDrawerActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(NavDrawerActivity.this, "Sub success", Toast.LENGTH_SHORT).show();
+                        loadPosts();
                     }
                 });
             }
@@ -304,8 +304,7 @@ public class NavDrawerActivity extends AppCompatActivity
                 NavDrawerActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Gson g = new Gson();
-                        Post p = g.fromJson(data, Post.class);
+                        Post p = new Gson().fromJson(data, Post.class);
 
                         posts.add(0, p);
                         adapter.notifyItemInserted(0);
@@ -315,7 +314,6 @@ public class NavDrawerActivity extends AppCompatActivity
                 });
             }
         });
-
 
         pusher.connect();
     }

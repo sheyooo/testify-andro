@@ -41,7 +41,7 @@ public class NewPostActivity extends AppCompatActivity implements CategoryCallba
     private EditText postEditText;
     private Switch anonSwitch;
     private ImageView anonymityIcon;
-    private ProgressDialog catProgressDialog;
+    private ProgressDialog progressDialog;
     private FlowLayout categoriesView;
 
     private FlowLayout.LayoutParams layout;
@@ -91,7 +91,7 @@ public class NewPostActivity extends AppCompatActivity implements CategoryCallba
 
     private void populateCategories() {
         if (getCategories().size() < 1) {
-            catProgressDialog = ProgressDialog.show(this, "First time loading categories", "Loading categories...", true);
+            progressDialog = ProgressDialog.show(this, null, "Loading categories...", true);
             downloadCategories();
         }
     }
@@ -103,12 +103,13 @@ public class NewPostActivity extends AppCompatActivity implements CategoryCallba
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
                 Application.saveCategoriesToDB(response.body());
-                catProgressDialog.dismiss();
+                progressDialog.dismiss();
+                setGeneralDefault();
             }
 
             @Override
             public void onFailure(Call<List<Category>> call, Throwable t) {
-                catProgressDialog.dismiss();
+                progressDialog.dismiss();
                 NewPostActivity.this.finish();
             }
         });
@@ -141,8 +142,11 @@ public class NewPostActivity extends AppCompatActivity implements CategoryCallba
         PostPayload pay = new PostPayload();
 
         if (!isPostValid()) {
+            Toast.makeText(this, "Please write some text or upload some pictures.", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        progressDialog = progressDialog.show(this, null, "Sending your post...");
 
         int anon = anonSwitch.isChecked() ? 1 : 0;
 
@@ -157,13 +161,15 @@ public class NewPostActivity extends AppCompatActivity implements CategoryCallba
         call.enqueue(new Callback<Post>() {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
-                Toast.makeText(NewPostActivity.this, "It went", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NewPostActivity.this, "Your post was sent successfully", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
                 finish();
             }
 
             @Override
             public void onFailure(Call<Post> call, Throwable t) {
-                Toast.makeText(NewPostActivity.this, "Didnt make it", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+                Toast.makeText(NewPostActivity.this, "Something went wrong, please check your internet", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -235,6 +241,7 @@ public class NewPostActivity extends AppCompatActivity implements CategoryCallba
 
             TextView tv = Application.generateUICategoryTag(this, tag);
             tv.setLayoutParams(layout);
+            // set to red tv.setBackgroundColor();
 
             // Add to flow layout view
             categoriesView.addView(tv);
