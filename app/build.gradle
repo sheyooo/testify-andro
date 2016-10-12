@@ -20,6 +20,10 @@ android {
     }
 }
 
+repositories {
+    maven { url 'http://clojars.org/repo' }
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
@@ -38,4 +42,7 @@ dependencies {
     compile 'com.facebook.stetho:stetho-okhttp3:1.4.1'
     compile 'com.makeramen:roundedimageview:2.2.1'
     compile 'com.github.satyan:sugar:1.4'
+
+    compile 'com.pusher:pusher-websocket-android:0.2.1'
+
 }
