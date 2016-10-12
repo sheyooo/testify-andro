@@ -59,9 +59,9 @@
                 android:id="@+id/sendCommentButton"
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
+                android:onClick="sendComment"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_send_black_24dp"
-                android:onClick="sendComment" />
+                android:src="@drawable/ic_send_black_24dp" />
         </LinearLayout>
 
     </LinearLayout>

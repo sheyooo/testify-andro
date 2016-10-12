@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/ashBg">
+    android:background="@color/ashBg"
+    android:orientation="vertical">
 
     <ProgressBar
         android:id="@+id/homeSpinner"
@@ -12,11 +12,19 @@
         android:layout_centerInParent="true"
         android:visibility="visible" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/postRecyclerView"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical" />
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/postRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 
     <LinearLayout
         android:id="@+id/retryLL"
@@ -30,28 +38,28 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:src="@drawable/ic_no_network"
-            android:tint="@color/darkAsh"
-            android:layout_marginBottom="20dp"/>
+            android:tint="@color/darkAsh" />
 
         <TextView
             android:id="@+id/retryTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Couldn't load, click to try again"/>
+            android:text="Couldn't load, click to try again" />
 
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_create_white"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_gravity="end|bottom"
-        android:onClick="fabNewPostOnClick" />
+        android:layout_margin="@dimen/fab_margin"
+        android:onClick="fabNewPostOnClick"
+        android:src="@drawable/ic_create_white" />
 
 </RelativeLayout>
 
