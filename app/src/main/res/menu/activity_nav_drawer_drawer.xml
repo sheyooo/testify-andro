@@ -3,23 +3,23 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_home"
             android:icon="@drawable/icon_home"
             android:title="Feeds" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_profile"
             android:icon="@drawable/icon_profile"
             android:title="Profile" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_messages"
             android:icon="@drawable/icon_chat"
             android:title="Messages" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_favorites"
             android:icon="@drawable/icon_favorite"
             android:title="Favorites" />
         <item
-            android:id="@+id/nav_pref"
+            android:id="@+id/nav_preferences"
             android:icon="@drawable/icon_settings"
             android:title="Preferences" />
 

@@ -10,4 +10,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.sheyi.testify.activity.UserProfileActivity">
 
+
+    <fragment
+        android:id="@+id/postsFragment"
+        android:name="com.sheyi.testify.fragment.TestifyPostsFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </RelativeLayout>

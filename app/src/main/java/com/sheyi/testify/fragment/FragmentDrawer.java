@@ -1,8 +1,4 @@
-package com.sheyi.testify.activity;
-
-/**
- * Created by andela on 08/09/2016.
- */
+package com.sheyi.testify.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
