@@ -2,7 +2,6 @@ package com.sheyi.testify.orm;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.orm.SugarRecord;
 import com.sheyi.testify.models.Category;
 import com.sheyi.testify.models.User;
 
@@ -10,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 // TODO: TO IMPLEMENT OFFLINE AVAILABILITY
 
-public class PostORM extends SugarRecord {
+public class PostORM {
     @SerializedName("id")
     @Expose
     private Long id;

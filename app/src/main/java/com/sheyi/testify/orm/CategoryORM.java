@@ -1,8 +1,8 @@
 package com.sheyi.testify.orm;
 
-import com.orm.SugarRecord;
+import io.realm.RealmObject;
 
-public class CategoryORM extends SugarRecord {
+public class CategoryORM extends RealmObject {
 
     private String name;
     private String type;
@@ -20,6 +20,10 @@ public class CategoryORM extends SugarRecord {
 
     public int getApiID() {
         return apiID;
+    }
+
+    public void setApiID(int apiID) {
+        this.apiID = apiID;
     }
 
     public String getName() {

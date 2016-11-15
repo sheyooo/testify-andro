@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.github.curioustechizen.ago.RelativeTimeTextView;
 import com.sheyi.testify.R;
 import com.sheyi.testify.activity.CommentsActivity;
+import com.sheyi.testify.activity.UserProfileActivity;
 import com.sheyi.testify.models.Category;
 import com.sheyi.testify.models.Post;
 import com.sheyi.testify.models.receivables.ActionStatus;
@@ -122,6 +123,15 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
         } else {
             holder.tapIcon.setColorFilter(null);
         }
+
+        holder.nameTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(PostsAdapter.this.activity, UserProfileActivity.class);
+                i.putExtra("user_id", p.getUser().getId());
+                PostsAdapter.this.activity.startActivity(i);
+            }
+        });
 
         holder.commentButton.setOnClickListener(new View.OnClickListener() {
             @Override

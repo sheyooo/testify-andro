@@ -59,7 +59,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         int check = -1;
         int counter = 0;
         for (CategoryORM c : list) {
-            if (c.getId() == categoryORM.getId()) {
+            if (c.getApiID() == categoryORM.getApiID()) {
                 check = counter;
                 break;
             }

@@ -31,6 +31,9 @@ public interface ApiInterface {
     @GET("users/{hashID}")
     Call<User> getUser(@Path("hashID") String hashID);
 
+    @GET("users/{userID}")
+    Call<User> getUser(@Path("userID") int userID);
+
     @GET("posts")
     Call<List<Post>> getPosts();
 
