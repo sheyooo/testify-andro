@@ -33,8 +33,8 @@ public class UserProfileActivity extends AppCompatActivity {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if (response.isSuccessful()) {
-                    
+                if (response.isSuccessful() == true) {
+
                 }
             }
 
