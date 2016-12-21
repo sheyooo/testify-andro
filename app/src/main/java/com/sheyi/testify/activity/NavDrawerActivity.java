@@ -49,7 +49,6 @@ public class NavDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar mToolbar;
-    private FragmentDrawer drawerFragment;
     private DrawerLayout drawer;
 
     private SwipeRefreshLayout swipeRefreshContainer;
@@ -75,6 +74,7 @@ public class NavDrawerActivity extends AppCompatActivity
 
         getByIDs();
 
+        loaderBar.setVisibility(View.GONE);
         adapter = new PostsAdapter(NavDrawerActivity.this, posts);
         recycler.setLayoutManager(new LinearLayoutManager(NavDrawerActivity.this));
         recycler.setAdapter(adapter);
@@ -247,7 +247,7 @@ public class NavDrawerActivity extends AppCompatActivity
     }
 
     public void loadPosts() {
-        loaderBar.setVisibility(View.VISIBLE);
+        //loaderBar.setVisibility(View.VISIBLE);
         retryLL.setVisibility(View.GONE);
         swipeRefreshContainer.setRefreshing(true);
 
@@ -261,14 +261,14 @@ public class NavDrawerActivity extends AppCompatActivity
                 posts.addAll(response.body());
                 adapter.notifyDataSetChanged();
 
-                loaderBar.setVisibility(View.GONE);
+                //loaderBar.setVisibility(View.GONE);
                 retryLL.setVisibility(View.GONE);
                 swipeRefreshContainer.setRefreshing(false);
             }
 
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
-                loaderBar.setVisibility(View.GONE);
+                //loaderBar.setVisibility(View.GONE);
                 retryLL.setVisibility(View.VISIBLE);
 
                 swipeRefreshContainer.setRefreshing(false);
